@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-produto-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ms-produto-selector
+  template:
+    metadata:
+      labels:
+        app: ms-produto-selector
+    spec:
+      containers:
+      - name: ms-produto-c
+        image: cledkube/ms-produto:latest
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        ports:
+        - containerPort: 8091
+        env:
+        - name: DB_HOST
+          value: food
+        - name: URL_DB
+          value: aurora-cluster-food.cluster-c1w4uwac23w1.us-east-1.rds.amazonaws.com
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: rds-postgres-secret
+              key: username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rds-postgres-secret
+              key: password

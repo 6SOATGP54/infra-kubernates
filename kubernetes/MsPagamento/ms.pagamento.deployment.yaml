@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-food-deployment
+spec:
+  selector:
+    matchLabels:
+      app: app-food-selector
+  template:
+    metadata:
+      labels:
+        app: app-food-selector
+    spec:
+      containers:
+        - name: app-food
+          image: cledkube/ms-pagamento:latest
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          ports:
+            - containerPort: 8084
+          env:
+            - name: DATABASE_NOSQL
+              value: ms-pagamento
+            - name: HOST_NOSQL
+              value: mongodb
+            - name: NOSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: username
+            - name: NOSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: password
+            - name: RABBIT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rabbit-secret
+                  key: username
+            - name: RABBIT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbit-secret
+                  key: password
+            - name: NOSQL_PORT
+              value: "27017"
+            - name: RABBIT_HOST
+              value: "rabbitmq.rabbitmq.svc.cluster.local"
+            - name: RABBIT_PORT
+              value: "5672"
+      
