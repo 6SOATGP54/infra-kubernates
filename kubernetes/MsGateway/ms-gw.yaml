@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-gw-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ms-gw-selector
+  template:
+    metadata:
+      labels:
+        app: ms-gw-selector
+    spec:
+      containers:
+      - name: ms-gw-c
+        image:  gf8imi1uubf/ms-gateway:v1
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        ports:
+        - containerPort: 8761
+        env:
+        - name: URL_PEDIDO
+          value: http://a65d026a1d6484185b072d512c37acd0-322985211.us-east-1.elb.amazonaws.com:8084
+        - name: URL_PRODUTO
+          value: http://ae58990591ac2438a92560214d45f1fb-1091779897.us-east-1.elb.amazonaws.com
+        - name: URL_PAGAMENTO
+          value: http://ae0b894eba2ab4d0788bb4ab8c7e5212-1329691704.us-east-1.elb.amazonaws.com:8083

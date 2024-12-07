@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: ms-produto-c
-        image: cledkube/ms-produto:latest
+        image:  gf8imi1uubf/ms-produto:v1
         resources:
           requests:
             cpu: "100m"
@@ -24,17 +24,19 @@ spec:
         ports:
         - containerPort: 8091
         env:
-        - name: DB_HOST
+        - name: DATABASE_SQL
           value: food
-        - name: URL_DB
-          value: aurora-cluster-food.cluster-c1w4uwac23w1.us-east-1.rds.amazonaws.com
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef:
-              name: rds-postgres-secret
-              key: username
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: rds-postgres-secret
-              key: password
+        - name: HOST_SQL
+          value: aurora-cluster-food.cluster-c58ekassejrz.us-east-1.rds.amazonaws.com
+        - name: SQL_USER
+          value: food
+          # valueFrom:
+          #   secretKeyRef:
+          #     name: rds-postgres-secret
+          #     key: username
+        - name: SQL_PASSWORD
+          value: mV304IPt
+          # valueFrom:
+          #   secretKeyRef:
+          #     name: rds-postgres-secret
+          #     key: password

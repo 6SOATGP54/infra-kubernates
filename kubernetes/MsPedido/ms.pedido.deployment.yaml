@@ -51,7 +51,7 @@ spec:
             - name: NOSQL_PORT
               value: "27017"
             - name: RABBIT_HOST
-              value: "rabbitmq.rabbitmq.svc.cluster.local"
+              value: "rabbitmq.default.svc.cluster.local"
             - name: RABBIT_PORT
               value: "5672"
       

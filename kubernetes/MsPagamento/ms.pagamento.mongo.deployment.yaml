@@ -30,10 +30,3 @@ spec:
                 key: password
           - name: MONGO_INITDB_DATABASE
             value: "ms-pagamento"
-          volumeMounts:
-            - name: mongodb-data
-              mountPath: /data/db
-      volumes:
-        - name: mongodb-data
-          persistentVolumeClaim:
-            claimName: mongodb-pvc-pagamento
