@@ -71,3 +71,4 @@
            kubectl apply -f ./kubernetes/MsPagamento
            kubectl apply -f ./kubernetes/MsPedido
            kubectl apply -f ./kubernetes/MsProduto
+           kubectl apply -f ./kubernetes/MsGateway
